@@ -1,0 +1,25 @@
+Step 2: Generating Excel Charts
+Instead of using external plotting libraries, we embed a Line Chart directly into the First_Derivatives sheet. 
+This provides an immediate visual of the rate of voltage change compared to time.
+
+Python code for generating excel charts
+
+# 5. Create the Excel Chart
+chart = LineChart()
+chart.title = "ECG First Derivative Analysis"
+chart.style = 13
+chart.y_axis.title = "mV/s"
+chart.x_axis.title = "Time (s)"
+
+# Reference the data in the First_Derivatives sheet
+# Note: min_col=2 is the 'First Derivative' column; min_row=2 skips the header
+data = Reference(ws_deriv, min_col=2, min_row=2, max_row=len(t)+1)
+cats = Reference(ws_deriv, min_col=1, min_row=2, max_row=len(t)+1)
+
+chart.add_data(data, titles_from_data=False)
+chart.set_categories(cats)
+
+# 6. Add chart to the sheet and save
+ws_deriv.add_chart(chart, "E2") # Places chart at cell E2
+wb.save("ECG_Analysis_Results.xlsx")
+print("Workbook generated with embedded charts.")
