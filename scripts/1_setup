@@ -1,0 +1,43 @@
+Step 1: Data Conversion & Sheet Generation
+The first phase involves transforming raw ECG data into a structured multi-sheet Excel workbook. 
+This allows for organized storage of the raw signals, their mathematical derivatives, and future 
+labels.
+
+Python code for conversion
+
+import pandas as pd
+import numpy as np
+from openpyxl import Workbook
+from openpyxl.utils.dataframe import dataframe_to_rows
+
+# 1. Simulate ECG signal (360Hz sampling rate)
+fs = 360
+t = np.arange(0, 1, 1/fs)
+# Generating a synthetic QRS-like pulse
+ecg = 0.05 * np.sin(2 * np.pi * 1 * t) + np.exp(-((t - 0.5)**2) / 0.0005)
+
+# 2. Compute First Derivative (Rate of Change)
+# This identifies the sharp slopes of the QRS complex
+derivative = np.append([None], np.diff(ecg) / np.diff(t))
+
+# 3. Create DataFrames
+df_raw = pd.DataFrame({'Time (s)': t, 'ECG (mV)': ecg})
+df_deriv = pd.DataFrame({'Time (s)': t, 'First Derivative (mV/s)': derivative})
+df_labels = pd.DataFrame({'Time (s)': t, 'Beat Label': [''] * len(t)})
+
+# 4. Save to Multi-Sheet Excel
+wb = Workbook()
+ws_raw = wb.active
+ws_raw.title = "Raw_Signals"
+for row in dataframe_to_rows(df_raw, index=False, header=True):
+    ws_raw.append(row)
+
+ws_deriv = wb.create_sheet("First_Derivatives")
+for row in dataframe_to_rows(df_deriv, index=False, header=True):
+    ws_deriv.append(row)
+
+ws_labels = wb.create_sheet("Beat_Labels")
+for row in dataframe_to_rows(df_labels, index=False, header=True):
+    ws_labels.append(row)
+
+wb.save("ECG_Template_With_Formulas.xlsx")
