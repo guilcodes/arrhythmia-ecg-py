@@ -26,3 +26,12 @@ Arrhythmia refers to an irregular heartbeat, and is a fairly common condition th
     * **HRV & R-Peak Localization:** By applying a squaring function to the differentiated signal (as established in Pan-Tompkins foundational research), we emphasize steep voltage transitions.
     * **Efficiency:** This derivative-based approach is computationally optimized, making it ideal for the real-time classification of large-scale arrhythmia datasets.
 
+ 
+# Conclusion
+
+This study highlights how computer-aided analysis can transform raw ECG data into a much clearer diagnostic tool. By using Python to calculate the **first derivative** of the signal, we were able to filter out the noise and pinpoint the exact moments of rapid voltage change. This makes it significantly easier for a researcher or medical professional to spot the QRS complex and identify potential arrhythmias at a glance.
+
+However, the project also revealed a critical lesson regarding data quality. Because the current dataset lacks continuous waveforms and the specific **P and T waves**, there is a limit to how much of the heart’s overall story we can tell. To take this further, future work should prioritize datasets that provide a full, uninterrupted view of the cardiac cycle.
+
+In short, this repository demonstrates a reliable foundation for ECG processing. The methods used here prove that even simple mathematical concepts—like the derivative—can effectively "red-flag" irregular heart activity, paving the way for more efficient and accurate medical tech.
+
