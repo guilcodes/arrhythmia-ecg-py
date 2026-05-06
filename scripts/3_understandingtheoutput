@@ -1,0 +1,11 @@
+Understanding the Output
+
+Once you open ECG_Analysis_Results.xlsx, navigate to the First_Derivatives sheet:
+
+The Data: You will see the time-series slope values.
+
+The Chart: An embedded Excel chart will show a sharp peak where the R-wave occurs.
+
+Physiological Significance: The peak in the derivative chart corresponds to the most 
+rapid change in heart voltage (the QRS complex). By visualizing this in Excel, you can 
+verify that the mathematical derivative is correctly "triggering" on the heartbeat.
